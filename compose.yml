@@ -1,9 +1,11 @@
 services:
-  macos:
+  macos_perf:
     image: dockurr/macos
-    container_name: macos
+    container_name: macos_perf
     environment:
       VERSION: "14"
+      SIZE: "256G"   # Bigger primary drive
+      QEMU_DISK_OPTS: "cache=writeback,discard=on,format=raw"
     devices:
       - /dev/kvm
       - /dev/net/tun
@@ -14,6 +16,6 @@ services:
       - 5900:5900/tcp
       - 5900:5900/udp
     volumes:
-      - ./macos:/storage
+      - ./macos_perf:/storage
     restart: always
     stop_grace_period: 2m
